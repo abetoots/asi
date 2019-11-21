@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 
 module.exports = merge(common, {
@@ -55,6 +56,18 @@ module.exports = merge(common, {
                     'css-loader'
                 ]
             },
+        ]
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                sourceMap: true, // Must be set to true if using source-maps in production
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                    },
+                }
+            })
         ]
     }
 });
