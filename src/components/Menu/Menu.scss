@@ -1,0 +1,43 @@
+.Menu {
+    $self: &;
+    font-weight: 600;
+    margin: 0 auto;
+
+    &.-desktopOnly {
+        display: none;
+
+        @include media-query($medium-up) {
+            display: block;
+        }
+    }
+
+
+    &__ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &.-horizontal {
+            display: flex;
+
+            #{$self}__li {
+                padding: 0 15px;
+            }
+
+        }
+    }
+
+    &__li {
+        padding: 5px 0;
+    }
+
+
+    &__link {
+        text-decoration: none;
+        color: black;
+
+        &.active {
+            color: #d9121f;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.Account {
+    @include media-query($medium-up) {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__slot {
+        &.-form {
+            margin-top: 2.5rem;
+            padding: 0 1rem;
+
+            @include media-query($medium-up) {
+                width: 60vw;
+            }
+        }
+    }
+}

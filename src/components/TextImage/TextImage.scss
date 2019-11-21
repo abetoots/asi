@@ -1,0 +1,33 @@
+.TextImage {
+    display: flex;
+    flex-flow: column;
+    padding: 1rem;
+
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+    }
+
+    &__img {
+        max-width: 100%;
+        order: 1; //on mobile, images should be first
+
+        @include media-query($medium-up) {
+            order: 0; // default order on tablet-above
+        }
+    }
+
+    &__text {
+        order: 2; //on mobile, text should come second
+
+        @include media-query($medium-up) {
+            order: 0; // default order on tablet-above
+        }
+
+        p {
+            @include fluid-type(320px, 1440px, 16px, 20px);
+        }
+    }
+
+}

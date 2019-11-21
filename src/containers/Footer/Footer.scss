@@ -1,0 +1,68 @@
+.Footer {
+    $self: &;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1.5fr;
+
+    }
+
+    &__ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &.-horizontal {
+            display: flex;
+        }
+
+        &.-socials {
+            display: flex;
+            justify-content: space-around;
+        }
+
+
+    }
+
+    &__logoLink {
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    &__slot {
+
+        padding: 20px;
+
+        &.-bottomBar {
+            @include media-query($medium-up) {
+                grid-column: 1 / 4;
+            }
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        &.-center {
+            @include media-query($medium-up) {
+                justify-self: center;
+            }
+        }
+    }
+
+    &__innerSlot {
+        width: 100%;
+        padding: 15px;
+
+        &.-horizontal {
+            display: flex;
+        }
+    }
+
+}

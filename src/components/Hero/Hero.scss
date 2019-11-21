@@ -1,0 +1,47 @@
+.Hero {
+    $self: &;
+
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    background-color: #232323;
+
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: 1.4fr 1.6fr;
+        align-items: flex-end;
+
+        #{$self}__content {
+            grid-column: 1 / 2;
+        }
+    }
+
+    &__overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        opacity: .6;
+    }
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    &__content {
+        z-index: 2;
+        color: white;
+        margin: 2rem;
+        text-align: center;
+
+        @include media-query($medium-up) {
+            margin: 5rem;
+        }
+    }
+
+
+}
