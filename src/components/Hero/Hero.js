@@ -1,29 +1,36 @@
 import React from 'react';
+import './Hero.scss';
+
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 
-import './Hero.scss';
-import hero from '../../assets/opportunity-original.jpg';
-import heroTablet from '../../assets/opportunity-tablet.jpg';
-import heroMobile from '../../assets/opportunity-mobile.jpg';
+import PropTypes from 'prop-types'
 
 const Hero = (props) => {
     return (
-        <div className="Hero">
+        <div className={`Hero ${props.classModifier}`}>
             <div className="Hero__overlay">
                 <ResponsiveImage
                     class='Hero__img'
                     alt='The hero image for the website'
-                    src={hero}
-                    srcMobile={heroMobile}
-                    srcTablet={heroTablet}
+                    src={props.src}
+                    srcMobile={props.srcMobile}
+                    srcTablet={props.srcTablet}
                 />
             </div>
 
             <div className="Hero__content">
-                <h1>Sample Content</h1>
+                {props.children}
             </div>
         </div>
     );
+}
+
+Hero.propTypes = {
+    classModifier: PropTypes.string,
+    src: PropTypes.string,
+    srcMobile: PropTypes.string,
+    srcTablet: PropTypes.string,
+    children: PropTypes.elementType
 }
 
 export default Hero;
