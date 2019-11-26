@@ -9,6 +9,9 @@ import { filters } from '../../misc/shared/forms';
 import Search from '../Search/Search';
 import { useDebounce } from '../../misc/tools/hooks';
 
+import PropTypes from 'prop-types';
+
+
 const FilterControls = (props) => {
     const [activeFilters, setActiveFilters] = useState({
         input: '',
@@ -131,6 +134,10 @@ const FilterControls = (props) => {
 
         </div>
     );
+}
+
+FilterControls.propTypes = {
+    handleSubmit: PropTypes.func.isRequired
 }
 
 export default FilterControls;
