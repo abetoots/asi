@@ -4,7 +4,6 @@ import './App.scss';
 //Router
 import { BrowserRouter } from 'react-router-dom';
 //Redux
-
 import { connect } from 'react-redux';
 //Components
 import Header from './containers/Header/Header';
@@ -13,9 +12,11 @@ import Footer from './containers/Footer/Footer';
 import RoutesList from './components/RoutesList/RoutesList';
 import Spinner2 from './components/UI/Spinner/Spinner2';
 import Aux from './hoc/Auxiliary';
-
+//Misc
 import * as menus from './misc/shared/menus';
 import { uniqArray } from './misc/tools/util';
+import PropTypes from 'prop-types';
+
 
 const App = (props) => {
     /**
@@ -49,6 +50,10 @@ const mapStateToProps = state => {
     return {
         initializedFirebaseAuth: state.global.initializedFirebaseAuth
     }
+}
+
+App.propTypes = {
+    initializedFirebaseAuth: PropTypes.bool
 }
 
 export default connect(mapStateToProps)(App);
