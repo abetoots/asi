@@ -1,11 +1,9 @@
 import React from 'react';
 import './Input.scss';
-import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
-import FroalaEditor from 'react-froala-wysiwyg';
-
+import PropTypes from 'prop-types';
 
 const Input = (props) => {
     let inputElement = null;
@@ -25,6 +23,7 @@ const Input = (props) => {
         }
     }
 
+    //When button is clicked, trigger the click on <input type="file">
     const fileInputEl = useRef(null);
     const fileBtnHandler = (event) => {
         fileInputEl.current.click();
@@ -77,12 +76,35 @@ const Input = (props) => {
                         onBlur={focusHandler}>
                         {props.elementConfig.options.map(option => (
                             <option
-                                key={option.value}
-                                value={option.value}>
-                                {option.displayValue}
+                                key={option}
+                                value={option}>
+                                {option}
                             </option>
                         ))}
                     </select>
+                break;
+            case ('checkbox'):
+                inputElement =
+                    <ul className="Input__ul">
+                        {props.elementConfig.options.map(item => {
+                            return (
+                                <li key={item} className="Input__checkboxLi">
+                                    <input
+                                        id={item}
+                                        className="Input__checkboxInput"
+                                        type="checkbox"
+                                        value={item}
+                                        checked={props.value.includes(item)}
+                                        onChange={props.handleChange}
+                                        onFocus={focusHandler}
+                                        onBlur={focusHandler}
+                                    />
+                                    <label htmlFor={item}>{item}</label>
+                                </li>
+                            );
+
+                        })}
+                    </ul>
                 break;
 
             case ('editor'):
@@ -113,9 +135,24 @@ const Input = (props) => {
 
 Input.propTypes = {
     elementType: PropTypes.string.isRequired,
-    elementConfig: PropTypes.object.isRequired,
+    elementConfig: PropTypes.shape({
+        type: PropTypes.string,
+        required: PropTypes.bool,
+        options: PropTypes.array
+    }),
     label: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
+    valid: PropTypes.bool,
+    touched: PropTypes.bool,
+    shouldValidate: PropTypes.bool,
+    customProps: PropTypes.object,
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.object
+    ]),
+    children: PropTypes.elementType
 }
 
 export default Input;

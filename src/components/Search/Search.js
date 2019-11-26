@@ -90,7 +90,7 @@ Search.propTypes = {
     icon: PropTypes.element,
     results: PropTypes.array,
     absolute: PropTypes.bool,
-    tooltip: PropTypes.bool,
+    tooltip: PropTypes.string,
     labelHidden: PropTypes.bool,
     handleResultClick: PropTypes.func,
     handleSubmit: PropTypes.func,

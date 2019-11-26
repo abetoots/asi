@@ -30,7 +30,7 @@ Hero.propTypes = {
     src: PropTypes.string,
     srcMobile: PropTypes.string,
     srcTablet: PropTypes.string,
-    children: PropTypes.elementType
+    children: PropTypes.element
 }
 
 export default Hero;
