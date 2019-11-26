@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
     entry: './src/index.js',
     module: {
@@ -13,7 +11,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: '[name].[ext]',
+                        name: '[name].[hash].[ext]',
                         outputPath: 'media'
                     }
                 }
@@ -22,15 +20,7 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env', '@babel/preset-react'],
-                            plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime']
-                        }
-                    }
-                ],
+                use: ['babel-loader'],
             }
         ]
     }
