@@ -1,15 +1,18 @@
 .Logo {
     display: flex;
     align-items: center;
+    margin: 10px 0;
 
     &__img {
         width: 100%;
         height: auto;
-        max-width: 80px;
+        max-width: 65px;
+
     }
 
     &__text {
         font-size: 2em;
         font-weight: 800;
+        margin: 0 5px;
     }
 }
