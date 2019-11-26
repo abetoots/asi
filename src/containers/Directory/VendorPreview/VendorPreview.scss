@@ -1,0 +1,26 @@
+.VendorPreview {
+    $self: &;
+
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    height: max-content;
+
+    &__slot {
+        &.-head {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+
+    &__photo {
+        max-width: 5rem;
+        height: 5rem;
+    }
+
+}
