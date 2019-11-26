@@ -1,3 +1,5 @@
+import { categories } from './categories';
+import { provinces } from './lists';
 // * Key should be what you defined in the state
 export const accountForm = [
     {
@@ -21,14 +23,60 @@ export const accountForm = [
         customProps: {},
     },
     {
-        key: 'category',
-        elementType: 'input',
+        key: 'categories',
+        elementType: 'checkbox',
         elementConfig: {
-            type: 'text',
-            required: true
+            options: categories
         },
         label: 'Category',
         customProps: {},
+    },
+    {
+        multiLine: true,
+        parentKey: 'location',
+        inputs: [
+            {
+                key: 'street',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    required: true
+                },
+                label: 'House No. / Street / Barangay',
+                customProps: {},
+            },
+            {
+                key: 'city',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    required: true
+                },
+                label: 'Municipality/City',
+                customProps: {},
+            },
+            {
+                key: 'province',
+                elementType: 'select',
+                elementConfig: {
+                    required: true,
+                    options: provinces
+                },
+                label: 'Province',
+                customProps: {},
+            },
+            {
+                key: 'country',
+                elementType: 'select',
+                elementConfig: {
+                    required: true,
+                    options: ['', 'Philippines']
+                },
+                label: 'Country',
+                customProps: {},
+            },
+
+        ]
     },
     {
         key: 'phoneNum',
@@ -49,7 +97,6 @@ export const accountForm = [
         elementType: 'input',
         elementConfig: {
             type: 'number',
-            required: true
         },
         label: 'Tel. Number',
         customProps: {
@@ -62,6 +109,7 @@ export const accountForm = [
         elementType: 'input',
         elementConfig: {
             type: 'url',
+            pattern: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
         },
         label: 'Website',
         customProps: {
@@ -81,7 +129,6 @@ export const accountForm = [
         elementType: 'input',
         elementConfig: {
             type: 'file',
-            required: true,
             accept: 'image/png, image/jpeg',
 
         },
@@ -91,4 +138,46 @@ export const accountForm = [
         },
     },
 
+];
+
+export const filters = [
+    {
+        key: 'categories',
+        elementType: 'checkbox',
+        elementConfig: {
+            options: categories
+        },
+        label: 'Category',
+        customProps: {},
+    },
+    {
+        key: 'city',
+        elementType: 'input',
+        elementConfig: {
+            type: 'text',
+            autoComplete: 'none'
+        },
+        label: 'Municipality/City',
+        customProps: {},
+    },
+    {
+        key: 'province',
+        elementType: 'select',
+        elementConfig: {
+            options: provinces,
+            autoComplete: 'none'
+        },
+        label: 'Province',
+        customProps: {},
+    },
+    {
+        key: 'country',
+        elementType: 'select',
+        elementConfig: {
+            options: ['', 'Philippines'],
+            autoComplete: 'none'
+        },
+        label: 'Country',
+        customProps: {},
+    },
 ];

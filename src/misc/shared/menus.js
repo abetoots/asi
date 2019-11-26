@@ -1,4 +1,5 @@
 import Logout from '../../components/Logout/Logout';
+import Home from '../../containers/Home/Home';
 
 import { TERMS_OF_SERVICE_PATH, PRIVACY_POLICY_PATH } from './constants';
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
@@ -7,13 +8,13 @@ import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 const AsyncAuth = asyncComponent(() => {
     return import('../../containers/Auth/Auth');
 });
-const AsyncHero = asyncComponent(() => {
-    return import('../../components/Hero/Hero');
-});
 const AsyncAccount = asyncComponent(() => {
     return import('../../containers/Account/Account');
 });
-const AsyncAbout = asyncComponent(()=> {
+const AsyncDirectory = asyncComponent(() => {
+    return import('../../containers/Directory/Directory');
+})
+const AsyncAbout = asyncComponent(() => {
     return import('../../containers/About/About');
 })
 
@@ -27,28 +28,18 @@ export const defaultMenu = [
     {
         path: '/',
         exact: true,
-        component: AsyncHero,
+        component: Home,
         label: 'Home'
-    }, {
-        path: '/events',
-        exact: true,
-        component: '',
-        label: 'Events'
-    }, {
-        path: '/projects',
-        exact: true,
-        component: '',
-        label: 'Projects'
-    }, {
-        path: '/register',
-        exact: true,
-        component: '',
-        label: 'Register'
     }, {
         path: '/login',
         exact: true,
         component: AsyncAuth,
         label: 'Login'
+    }, {
+        path: '/directory',
+        exact: true,
+        component: AsyncDirectory,
+        label: 'Explore'
     }, {
         path: '/donate',
         exact: true,
@@ -61,28 +52,18 @@ export const authenticatedMenu = [
     {
         path: '/',
         exact: true,
-        component: AsyncHero,
+        component: Home,
         label: 'Home'
-    }, {
-        path: '/events',
-        exact: true,
-        component: '',
-        label: 'Events'
-    }, {
-        path: '/projects',
-        exact: true,
-        component: '',
-        label: 'Projects'
-    }, {
-        path: '/donate',
-        exact: true,
-        component: '',
-        label: 'Donate'
     }, {
         path: '/account',
         exact: true,
         component: AsyncAccount,
         label: 'Account'
+    }, {
+        path: '/directory',
+        exact: true,
+        component: AsyncDirectory,
+        label: 'Explore'
     }, {
         path: '/logout',
         exact: true,
@@ -126,5 +107,16 @@ export const footerMenu2 = [
         exact: true,
         component: '',
         label: 'Privacy Policy'
+    },
+    {
+        path: '/events',
+        exact: true,
+        component: '',
+        label: 'Events'
+    }, {
+        path: '/projects',
+        exact: true,
+        component: '',
+        label: 'Projects'
     },
 ];
