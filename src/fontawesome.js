@@ -9,7 +9,10 @@ import {
 import {
     faMobileAlt,
     faPhone,
-    faGlobe
+    faGlobe,
+    faSpinner,
+    faSyncAlt,
+    faSlidersH
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -18,5 +21,8 @@ library.add(
     faTwitter,
     faMobileAlt,
     faPhone,
-    faGlobe
+    faGlobe,
+    faSpinner,
+    faSyncAlt,
+    faSlidersH
 );
