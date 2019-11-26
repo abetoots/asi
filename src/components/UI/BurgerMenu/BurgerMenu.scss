@@ -11,10 +11,6 @@
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    @include tablet-above {
-        display: none;
-    }
-
     &__bar {
         //Selector for the bars
         width: 2rem;
@@ -37,7 +33,7 @@
         }
     }
 
-    &.toggled {
+    &.-toggled {
         #{$self}__bar {
             background-color: #15dfbc;
 
