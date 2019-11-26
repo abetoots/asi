@@ -34,6 +34,11 @@ const TextImage = (props) => {
 
 TextImage.propTypes = {
     left: PropTypes.bool,
-    right: PropTypes.bool
+    right: PropTypes.bool,
+    alt: PropTypes.string,
+    src: PropTypes.string,
+    srcMobile: PropTypes.string,
+    srcTablet: PropTypes.string,
+    children: PropTypes.elementType
 }
 export default TextImage;

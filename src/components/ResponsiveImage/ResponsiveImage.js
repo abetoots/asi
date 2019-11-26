@@ -16,10 +16,11 @@ const ResponsiveImage = (props) => {
 }
 
 ResponsiveImage.propTypes = {
-    srcMobile: PropTypes.string,
-    srcTablet: PropTypes.string,
+    srcMobile: PropTypes.string.isRequired,
+    srcTablet: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired
+    alt: PropTypes.string.isRequired,
+    class: PropTypes.string
 }
 
 

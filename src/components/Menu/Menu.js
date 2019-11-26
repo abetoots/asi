@@ -30,7 +30,11 @@ Menu.propTypes = {
             component: PropTypes.elementType,
             label: PropTypes.string
         }
-    ).isRequired)
+    ).isRequired),
+    desktopOnly: PropTypes.bool,
+    label: PropTypes.string,
+    horizontal: PropTypes.bool,
+    linklist: PropTypes.array
 }
 
 export default Menu;
