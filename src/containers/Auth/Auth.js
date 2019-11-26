@@ -7,11 +7,9 @@ import 'firebaseui/dist/firebaseui.css';
 
 //Redux
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 
-import { Redirect } from 'react-router-dom';
-import Spinner from '../../components/UI/Spinner/Spinner1';
 import Aux from '../../hoc/Auxiliary';
+import { Link } from 'react-router-dom';
 
 //Type check
 import PropTypes from 'prop-types'
@@ -20,19 +18,32 @@ import PropTypes from 'prop-types'
 class Auth extends Component {
 
     componentDidMount() {
+        console.log('mounted', '[Auth]');
         if (!this.props.signedIn) {
+            console.log('start ui');
             startUI('.Auth__firebaseContainer', getUIConfig());
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        console.log('updated', '[Auth]');
+
+    }
+
+
     render() {
+        console.log('rendered', '[Auth]');
+
         return (
             <div className="Auth">
                 {this.props.signedIn ?
-                    <h1 className="Auth__heading -animateUp">Welcome {authService.currentUser.displayName} !</h1>
+                    <Aux>
+                        <h1 className="Auth__heading -animateUp">Welcome {authService.currentUser.displayName} !</h1>
+                        <Link to="/account" className="Auth__link -animateUp">Edit your Account</Link>
+                    </Aux>
                     :
                     <Aux>
-                        <h1 className="Auth__heading">Log In To Your Account</h1>
+                        <h1 className="Auth__heading">Please sign in first:</h1>
                         <div className="Auth__firebaseContainer"></div>
                     </Aux>
                 }
@@ -40,7 +51,7 @@ class Auth extends Component {
             </div>
         );
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
