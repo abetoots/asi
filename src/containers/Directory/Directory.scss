@@ -1,0 +1,87 @@
+.Directory {
+    box-sizing: border-box;
+
+    &__slot {
+
+        &.-results {
+            @include media-query($medium-up) {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-auto-rows: max-content;
+            }
+        }
+    }
+
+    &__subSlot {
+        &.-filterControls {
+            display: none;
+
+            @include media-query($medium-up) {
+                display: initial;
+            }
+        }
+
+        &.-refresh {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            justify-content: flex-end;
+
+            @include media-query($medium-up) {
+                grid-column: 1 /4;
+
+            }
+
+        }
+    }
+
+    &__mobileBtn {
+        border: 1px solid #ececec;
+        border-radius: 5px;
+        background-color: white;
+        padding: 10px 15px;
+        width: 100%;
+        text-align: center;
+
+    }
+
+    &__mobileTarget {
+        position: absolute;
+        transition: all .4s ease;
+        left: -100%;
+        z-index: 200;
+        background-color: white;
+        padding: 5px;
+        border-radius: 5px;
+        min-height: 100vh;
+        top: 15px;
+
+        &.-toggled {
+            left: 0;
+        }
+
+        @include media-query($medium-up) {
+            position: initial;
+        }
+    }
+
+    &__refresh {
+        cursor: pointer;
+        height: 100%;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        background-color: #024570;
+        color: white;
+        width: 100%;
+    }
+
+    &__refreshText {
+        padding: 0 15px;
+    }
+
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: minmax(20%, 30%) 4fr;
+    }
+}
