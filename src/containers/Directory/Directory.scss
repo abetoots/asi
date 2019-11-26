@@ -1,7 +1,15 @@
 .Directory {
     box-sizing: border-box;
 
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: minmax(20%, 30%) 4fr;
+        grid-gap: 15px;
+    }
+
     &__slot {
+
+        padding: 5px;
 
         &.-results {
             @include media-query($medium-up) {
@@ -24,7 +32,7 @@
         &.-refresh {
             display: flex;
             align-items: center;
-            padding: 15px;
+            margin-bottom: 15px;
             justify-content: flex-end;
 
             @include media-query($medium-up) {
@@ -80,8 +88,4 @@
         padding: 0 15px;
     }
 
-    @include media-query($medium-up) {
-        display: grid;
-        grid-template-columns: minmax(20%, 30%) 4fr;
-    }
 }
