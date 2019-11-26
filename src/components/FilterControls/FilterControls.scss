@@ -1,0 +1,21 @@
+.FilterControls {
+    padding: 5px;
+    background-color: inherit;
+
+    &__slot {
+
+        &.-search {
+            margin-bottom: 15px;
+        }
+
+        &.-mobileBtn {
+            margin-bottom: 10px;
+        }
+    }
+
+
+
+    &__mobileBtnText {
+        padding: 0 15px;
+    }
+}
