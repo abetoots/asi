@@ -1,0 +1,91 @@
+.Home {
+    position: relative;
+
+    &__slot {
+        &.-hero {
+            // color: #14BDEB;
+            color: rgb(177, 208, 243);
+
+            @include media-query($medium-up) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 1rem;
+            }
+
+        }
+    }
+
+    &__subSlot {
+        text-align: center;
+
+        &.-or {
+            position: relative;
+
+            @include media-query($medium-up) {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateY(-50%);
+                transform: translateX(-50%);
+            }
+        }
+
+        &.-panel {
+            display: flex;
+            flex-flow: column;
+            padding: 30px;
+        }
+    }
+
+    &__or {
+        cursor: default;
+        background-color: #000;
+        color: #fff;
+        padding: 15px;
+        border-radius: 50%;
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    &__line {
+        background-color: #000;
+        position: absolute;
+        height: 2px;
+        width: 60vw;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+
+        @include media-query($medium-up) {
+            width: 2px;
+            height: 60vh;
+            left: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    &__btnCta {
+        cursor: pointer;
+        margin: auto 0;
+        align-self: center;
+        font-weight: 600;
+        background-color: #d9121f;
+        color: #EBF2F5;
+        text-transform: uppercase;
+        border: 2px solid #d9121f;
+        border-radius: 8px;
+        padding: 10px 15px;
+        text-decoration: none;
+        width: max-content;
+        transition: transform .3s cubic-bezier(.39, .12, 0, .94);
+        @include fluid-type(320px, 1440px, 16px, 25px);
+
+        &:hover {
+            transform: scale(1.1, 1.1);
+        }
+    }
+}
