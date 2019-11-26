@@ -1,0 +1,152 @@
+.Search {
+    $self: &;
+    position: relative;
+    box-sizing: border-box;
+
+    &.-focused:not(.-touched),
+    &:focus:not(.-touched) {
+        #{$self}__tooltip {
+            display: block;
+        }
+    }
+
+    &__label {
+        &.-hidden {
+
+            @include visually-hidden;
+        }
+    }
+
+    &__input {
+        box-sizing: border-box;
+        width: 100%;
+
+        &.-variant1 {
+            padding: .625rem;
+            margin-top: -.625rem;
+            border: none;
+            border-bottom: .0625rem solid #000;
+            min-width: 12.5rem;
+            background: transparent;
+            border-radius: 0;
+        }
+
+        &.-variant2 {
+            padding: 11px 35px 10px 20px;
+            margin: 0;
+            min-height: 45px;
+            border-radius: 25px;
+            @include fluid-type(320px, 1440px, 16px, 25px);
+            background-color: #f5f5f5;
+            color: black;
+            border: 1px solid #f5f5f5;
+        }
+
+        &.-filterControls {
+            border: 1px solid #f5f5f5;
+            padding: .625rem;
+
+        }
+    }
+
+    &__autoResults {
+        position: absolute;
+        width: 100%;
+        z-index: 33;
+        top: 115%;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+
+        >ul {
+            padding: 5px;
+            cursor: pointer;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            >li {
+                transition: all .3s ease;
+                padding: 3px;
+
+                &:hover {
+                    background-color: rgba(216, 216, 216, 0.74);
+                }
+            }
+        }
+    }
+
+    &__tooltip {
+        display: none;
+        position: absolute;
+        top: 115%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        color: black;
+        padding: 5px;
+        border-radius: 5px;
+
+        &::after {
+            content: " ";
+            position: absolute;
+            bottom: 100%;
+            /* At the top of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent white transparent;
+        }
+    }
+
+
+    &__icon {
+        height: fit-content;
+    }
+
+    &__button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        &.-right {
+            position: absolute;
+            right: 0;
+        }
+
+        &.-left {
+            position: absolute;
+            left: 0;
+        }
+
+        &.-rightaligncenter {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &.-rightaligncenterpadded {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+        }
+
+        &.-filterControls {
+            height: 100%;
+            border-radius: 20px;
+            padding: 0 20px;
+            background-color: #024570;
+            color: white;
+        }
+    }
+
+    &__btnText {
+        &.-withIcon {
+            @include visually-hidden;
+        }
+    }
+
+}
