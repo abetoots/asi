@@ -5,8 +5,9 @@
     justify-content: center;
     align-items: center;
 
-    &__heading {
 
+    &__heading,
+    &__link {
         &.-animateUp {
             animation-name: animateUp;
             animation-fill-mode: forwards;
@@ -16,6 +17,7 @@
             opacity: 0;
         }
     }
+
 
     @keyframes animateUp {
         0% {
