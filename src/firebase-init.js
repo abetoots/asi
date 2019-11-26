@@ -9,11 +9,9 @@ import 'firebase/firestore';
 // Add FirebaseUI drop-in to handle authentication UI flows
 import * as firebaseui from 'firebaseui';
 import { TERMS_OF_SERVICE_PATH, PRIVACY_POLICY_PATH } from './misc/shared/constants';
-const CLIENT_ID = '16663924320-uc0mu3p3i8ulu43db50jfvph5jlb0qi6.apps.googleusercontent.com';
 
 //So we can dispatch actions outside a component
-import { signInSuccess, signOut } from './store/actions/user';
-import { initFirebaseAuth } from './store/actions/global';
+import * as actions from './store/actions/index';
 import { store } from './index';
 
 const firebaseConfig = {
@@ -33,7 +31,33 @@ firebase.analytics();
 
 //Initialize Cloud Firestore
 export const db = firebase.firestore();
+// Enable offline persistence
+db.enablePersistence()
+    .catch(function (err) {
+        if (err.code == 'failed-precondition') {
+            // Multiple tabs open, persistence can only be enabled
+            // in one tab at a a time.
+            // ...
+            console.log(err.code);
+        } else if (err.code == 'unimplemented') {
+            // The current browser does not support all of the
+            // features required to enable persistence
+            // ...
+            console.log(err.code);
+        }
+    });
 export const vendorsRef = db.collection('vendors');
+// Listen to offline data
+// https://firebase.google.com/docs/firestore/manage-data/enable-offline#listen_to_offline_data
+vendorsRef.onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+            console.log("Change added: ", change.doc.data());
+        }
+        let source = snapshot.metadata.fromCache ? 'local cache' : 'server';
+        console.log('Data came from ' + source, '[vendorsRef]');
+    })
+});
 export const stateRef = db.collection('state');
 
 //Create a reference to the Cloud Storage service
@@ -42,6 +66,7 @@ export const storage = firebase.storage();
 export const storageRef = storage.ref();
 //Create a child reference to '/images'
 export const imageRef = storageRef.child('images');
+export const thumbRef = imageRef.child('thumbnails');
 //Used by the UploadTask observer when monitoring upload progress to Cloud Storage
 //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
 export const taskState = firebase.storage.TaskState;
@@ -61,18 +86,30 @@ export const getUIConfig = (redirect = false) => {
             // or whether we leave that to developer to handle.
             signInSuccessWithAuthResult: function (authResult, redirectUrl) {
                 if (authResult.user) {
-                    store.dispatch(signInSuccess(authResult.user));
+                    if (authResult.additionalUserInfo.isNewUser) {
+                        //we only need this to set loadedAccount to true
+                        store.dispatch(actions.retrieveAccountSuccess({}));
+                    }
+                    store.dispatch(actions.signInSuccess(authResult.user));
+                    if (authResult.additionalUserInfo.isNewUser) {
+                        console.log('new user', '[signInSuccess]');
+                    }
+                    // Do not redirect by default.
+                    console.log(redirectUrl);
+                    return redirect;
                 }
-                if (authResult.additionalUserInfo.isNewUser) {
-                    console.log('new user', '[signInSuccess]');
-                }
-                // Do not redirect by default.
-                return redirect;
             },
             signInFailure: function (error) {
-
-            }
+                // Some unrecoverable error occurred during sign-in.
+                // Return a promise when error handling is completed and FirebaseUI
+                // will reset, clearing any UI. This commonly occurs for error code
+                // 'firebaseui/anonymous-upgrade-merge-conflict' when merge conflict
+                // occurs. Check below for more details on this.
+                // return handleUIError(error);
+                console.log(error)
+            },
         },
+
         // Opens IDP Providers sign-in flow in a popup.
         signInFlow: 'popup',
         signInOptions: [
@@ -80,7 +117,9 @@ export const getUIConfig = (redirect = false) => {
             {
                 provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 // Required to enable ID token credentials for this provider.
-                clientId: CLIENT_ID
+                //One-tap sign-up
+                //https://github.com/firebase/firebaseui-web#one-tap-sign-up
+                // clientId: CLIENT_ID
             },
             firebase.auth.FacebookAuthProvider.PROVIDER_ID,
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -94,11 +133,12 @@ export const getUIConfig = (redirect = false) => {
     }
 }
 
+
 export const authService = firebase.auth();
 // Instantiate the FirebaseUI Widget using Firebase.
 const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
 firebase.auth().onAuthStateChanged(function (user) {
-    store.dispatch(initFirebaseAuth());
+    store.dispatch(actions.initFirebaseAuth());
     if (user) {
         // User is signed in.
         //When signInSuccessWithAuthResult is called after successful login, the observer gets triggered.
@@ -106,7 +146,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         // If the app is reloaded/revisited, the state gets reset. This is when we should dispatch an automatic sign-in
         // if user is found
         if (!store.getState().user.signedIn && !store.getState().user.pending) {
-            store.dispatch(signInSuccess(user));
+            store.dispatch(actions.signInSuccess(user));
         }
     } else {
         // No user is signed in.
@@ -123,68 +163,10 @@ export const startUI = (container, config) => {
 export const logOut = async () => {
     try {
         await firebase.auth().signOut()
-            .then(() => {
-                store.dispatch(signOut());
-            });
+        store.dispatch(actions.signOut());
 
     } catch (err) {
         console.log(err);
     }
 
-}
-
-//The three observers:
-// 1. 'state_changed' observer, called any time the state changes
-export const handleStateChange = snapshot => {
-    // Observe state change events such as progress, pause, and resume
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-        case taskState.PAUSED: // or 'paused'
-            console.log('Upload is paused');
-            break;
-        case taskState.RUNNING: // or 'running'
-            console.log('Upload is running');
-            break;
-    }
-}
-
-// 2. Error observer, called on failure
-export const handleUploadError = err => {
-    // Handle unsuccessful uploads
-    console.log(error);
-    // A full list of error codes is available at
-    // https://firebase.google.com/docs/storage/web/handle-errors
-    switch (error.code) {
-        case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            break;
-        case 'storage/canceled':
-            // User canceled the upload
-            break;
-        case 'storage/unknown':
-            // Unknown error occurred, inspect error.serverResponse
-            break;
-    }
-}
-
-// 3. Completion observer, called on successful completion
-export const handleUploadCompletion = async (formData) => {
-    try {
-        //Wait so we can reassign our profilePhoto property to the download URL
-        await uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log('Uploaded a blob or file!');
-            console.log('File available at', downloadURL);
-            formData.profilePhoto = downloadURL;
-        });
-
-        // Data can now be added to Cloud Firestore
-        vendorsRef.doc(user.uid).set(formData)
-            .then(() => {
-                console.log("Document successfully written!");
-            })
-    } catch (err) {
-        console.log(err);
-    }
 }
