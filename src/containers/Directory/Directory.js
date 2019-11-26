@@ -17,12 +17,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Directory = (props) => {
 
     const [showBackDrop, setShowBackDrop] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
     const targetMobileEl = useRef(null);
 
     useEffect(() => {
         if (!props.loaded) {
             props.retrieveVendors();
+        } else {
+            setRefreshing(false);
         }
     }, [props.vendors]);
 
@@ -38,6 +41,7 @@ const Directory = (props) => {
         : <Spinner3 />;
 
     const handleRefresh = (e) => {
+        setRefreshing(true);
         props.retrieveVendors();
     }
 
@@ -75,7 +79,7 @@ const Directory = (props) => {
                     <div className="Directory__slot -results">
                         <div className="Directory__subSlot -refresh">
                             <button className="Directory__refresh" onClick={handleRefresh}>
-                                <FontAwesomeIcon icon={['fas', 'sync-alt']} spin={props.loading} />
+                                <FontAwesomeIcon icon={['fas', 'sync-alt']} spin={refreshing} />
                                 <span className="Directory__refreshText">Refresh Results</span>
                             </button>
                         </div>
