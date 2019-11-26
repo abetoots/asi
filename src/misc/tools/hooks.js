@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 //init cache for our scripts
 const scriptsCache = new Set();
@@ -63,4 +63,41 @@ export function useScript(src) {
     );
 
     return [loading, done, error];
+}
+
+export function useClassOnce(c) {
+    //https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
+    const ref = useRef(null);
+    // ✅ Class instance is created lazily once
+    if (ref.current === null) {
+        ref.current = new c();
+    }
+    return ref.current;
+}
+
+// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
+export function useDebounce(value, delay) {
+    // State and setters for debounced value
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        // Set debouncedValue to value (passed in) after the specified delay
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        //Cleanup
+        // ...Effects run for every render and not just once. 
+        //...This is why React also cleans up effects from the previous render before running the effects next time.
+        // Sample context: if the value passed in changes, the previous timeout is cleared, then set again
+        return () => {
+            clearTimeout(handler);
+        }
+
+    },
+        // Only re-call effect if value changes
+        [value]
+    );
+
+    return debouncedValue;
 }

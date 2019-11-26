@@ -1,3 +1,7 @@
+import truncate from 'lodash.truncate';
+import parse, { domToReact } from 'html-react-parser';
+
+
 export const updateObject = (oldState, newProperties) => {
     return {
         ...oldState,
@@ -67,3 +71,53 @@ export const uniqArray = menus => {
 export const isFunction = funcToCheck => {
     return funcToCheck && {}.toString.call(funcToCheck) === '[object Function]';
 }
+
+export const isObject = function (obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+};
+
+export const fileSizeExceeds = (file, validSize) => {
+    if (file.constructor !== File) {
+        return new Error('Not a file');
+    }
+
+    if (typeof validSize !== 'number') {
+        return new Error('Not a number');
+    }
+    //Check by megabytes
+    //True if filesize bigger than valid size * 1024
+    return Math.round((file.size / 1024)) >= (1024 * validSize);
+
+}
+
+export const truncateHtml = (htmlString, maxLength) => {
+
+    let truncated = truncate(htmlString, {
+        length: maxLength,
+        //lazy match(shortest substring) a closing html tag , spaces after comma ,or spaces after period to be used as a separator
+        separator: /,? +|.? +|<\/.*?>/
+    });
+    const parseOptions = {
+        replace: (domNode) => {
+            // console.log(domNode)
+        }
+    };
+
+    return parse(truncated, parseOptions);
+
+}
+
+export const validateFilters = (filters) => {
+    if (!isObject(filters)) {
+        return new Error('Filters not an object')
+    }
+    let isValid = true;
+    let toCheck = ['input', 'categories', 'location'];
+
+    toCheck.forEach(c => {
+        isValid = filters.hasOwnProperty(c) && isValid;
+    });
+
+    return isValid;
+} 
