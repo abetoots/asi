@@ -1,0 +1,48 @@
+.CategoryIcons {
+    $self: &;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include media-query($medium-up) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    &__slot {
+        margin: 0 3px;
+        text-align: center;
+
+        //nest to override elementor image defaults
+        #{$self}__image {
+            width: 70px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            max-width: 100%;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+    }
+
+    &__button {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+        color: inherit;
+
+        &:hover {
+            #{$self}__image {
+                background-color: rgba(255, 255, 255, 0.7);
+            }
+        }
+
+    }
+
+    &__category {
+        margin: 10px 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: inherit;
+    }
+}
