@@ -14,6 +14,7 @@ import ReduxThunk from 'redux-thunk';
 import userReducer from './store/reducers/user';
 import accReducer from './store/reducers/account';
 import globalReducer from './store/reducers/global';
+import vendorsReducer from './store/reducers/vendors';
 
 //Start components/stylesheets
 import './fontawesome';
@@ -28,10 +29,13 @@ import 'froala-editor/css/froala_editor.pkgd.min.css';
 const rootReducer = combineReducers({
     user: userReducer,
     global: globalReducer,
-    account: accReducer
+    account: accReducer,
+    vendors: vendorsReducer
 });
 //For Redux debugging (used with Redux Dev Tools Extension). If extension not found, falls back to compose.
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 })) || compose;
+const composeEnhancers = typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) : compose;
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
 
 const target = document.getElementById('root');
@@ -41,4 +45,4 @@ if (target) {
             <App />
         </Provider>
         , target)
-};
+}
