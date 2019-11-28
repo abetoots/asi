@@ -11,7 +11,6 @@ import BackDrop from '../../components/UI/Backdrop/Backdrop';
 //misc
 import * as actions from '../../store/actions/index';
 import PropTypes from 'prop-types';
-import Aux from '../../hoc/Auxiliary';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Directory = (props) => {
@@ -22,7 +21,7 @@ const Directory = (props) => {
     const targetMobileEl = useRef(null);
 
     useEffect(() => {
-        if (!props.loaded) {
+        if (!props.loaded && !props.loading) {
             props.retrieveVendors();
         } else {
             setRefreshing(false);
@@ -36,9 +35,7 @@ const Directory = (props) => {
 
     }
 
-    const notLoaded = props.error ?
-        <div>{props.error} ⚠️</div>
-        : <Spinner3 />;
+    const notLoaded = props.error ? <div>{props.error} ⚠️</div> : <Spinner3 />
 
     const handleRefresh = (e) => {
         setRefreshing(true);
@@ -57,45 +54,43 @@ const Directory = (props) => {
 
     return (
         <div className="Directory">
-            {props.loaded ?
-                <Aux>
-                    <div className="Directory__slot -filters">
-                        <MobileWrapper>
-                            <BackDrop show={showBackDrop} handleClick={backDropClickHandler} />
-                            <button onClick={mobileClickHandler} className="Directory__mobileBtn">
-                                <FontAwesomeIcon icon={['fas', 'sliders-h']} />
-                                <span className="FilterControls__mobileBtnText">Filter</span>
-                            </button>
-                        </MobileWrapper>
-                        <MobileWrapper>
-                            <div ref={targetMobileEl} className="Directory__mobileTarget">
-                                <FilterControls handleSubmit={submitHandler} />
-                            </div>
-                        </MobileWrapper>
-                        <div className="Directory__subSlot -filterControls">
-                            <FilterControls handleSubmit={submitHandler} />
-                        </div>
+            <div className="Directory__slot -filters">
+                <MobileWrapper>
+                    <BackDrop show={showBackDrop} handleClick={backDropClickHandler} />
+                    <button onClick={mobileClickHandler} className="Directory__mobileBtn">
+                        <FontAwesomeIcon icon={['fas', 'sliders-h']} />
+                        <span className="FilterControls__mobileBtnText">Filter</span>
+                    </button>
+                </MobileWrapper>
+                <MobileWrapper>
+                    <div ref={targetMobileEl} className="Directory__mobileTarget">
+                        <FilterControls handleSubmit={submitHandler} />
                     </div>
-                    <div className="Directory__slot -results">
-                        <div className="Directory__subSlot -refresh">
-                            <button className="Directory__refresh" onClick={handleRefresh}>
-                                <FontAwesomeIcon icon={['fas', 'sync-alt']} spin={refreshing} />
-                                <span className="Directory__refreshText">Refresh Results</span>
-                            </button>
-                        </div>
-                        {props.vendors.map(vendor => {
-                            return (
-                                <VendorPreview
-                                    key={vendor.id}
-                                    data={vendor.data}
-                                />
-                            );
-                        })}
-                    </div>
-                </Aux>
-                :
-                notLoaded
-            }
+                </MobileWrapper>
+                <div className="Directory__subSlot -filterControls">
+                    <FilterControls handleSubmit={submitHandler} />
+                </div>
+            </div>
+            <div className={`Directory__slot -results ${props.loading ? '-loading' : ''}`}>
+                <div className="Directory__subSlot -refresh">
+                    <button className="Directory__refresh" onClick={handleRefresh}>
+                        <FontAwesomeIcon icon={['fas', 'sync-alt']} spin={refreshing} />
+                        <span className="Directory__refreshText">Refresh Results</span>
+                    </button>
+                </div>
+                {props.loaded ?
+                    props.vendors.map(vendor => {
+                        return (
+                            <VendorPreview
+                                key={vendor.id}
+                                data={vendor.data}
+                            />
+                        );
+                    })
+                    :
+                    notLoaded
+                }
+            </div>
 
         </div>
     );
@@ -114,7 +109,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         retrieveVendors: () => dispatch(actions.retrieveVendors()),
-        retrieveFilteredVendors: (filters) => dispatch(actions.retrieveFilteredVendors(filters))
+        retrieveFilteredVendors: (filters) => dispatch(actions.retrieveVendorsByFilter(filters))
     }
 }
 
