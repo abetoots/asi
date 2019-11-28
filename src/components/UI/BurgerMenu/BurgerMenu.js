@@ -23,7 +23,7 @@ const BurgerMenu = (props) => {
 
 BurgerMenu.propTypes = {
     handleClick: PropTypes.func.isRequired,
-    togggled: PropTypes.bool
+    toggled: PropTypes.bool
 }
 
 
