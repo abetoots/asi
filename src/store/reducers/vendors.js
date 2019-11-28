@@ -11,7 +11,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.RETRIEVE_VENDORS_START:
-            return updateObject(state, { loading: true })
+            return updateObject(state, { loading: true, loaded: false })
         case actionTypes.RETRIEVE_VENDORS_FAILED:
             return updateObject(state, { error: action.error, loading: false })
         case actionTypes.RETRIEVE_VENDORS_SUCCESS:
