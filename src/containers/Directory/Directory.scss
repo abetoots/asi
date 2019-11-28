@@ -18,6 +18,10 @@
                 grid-auto-rows: max-content;
             }
         }
+
+        &.-loading {
+            display: initial;
+        }
     }
 
     &__subSlot {
