@@ -18,22 +18,21 @@ import PropTypes from 'prop-types';
 const Header = props => {
     const [mobileTriggered, setMobileTriggered] = useState(false);
 
-    const targetMobileEl = useRef(null);
-    const targetChildEl = targetMobileEl.current !== null ? targetMobileEl.current.firstElementChild : null;
+    const targetElToDisplay = useRef(null);
 
     const linklist = props.signedIn ? authenticatedMenu : defaultMenu;
 
-    let height = 0;
-    if (targetChildEl) {
-        // height = parseFloat(getComputedStyles(targetChildEl, null).height);
-        height = parseFloat(targetChildEl.getBoundingClientRect().height);
-    }
-
     const mobileClickHandler = e => {
-        if (parseFloat(targetMobileEl.current.style.height) > 0) {
-            targetMobileEl.current.style.height = 0;
+        if (targetElToDisplay === null) {
+            console.log('target not found');
+            return;
+        }
+        let wrapperHeight = targetElToDisplay.current.querySelector('.Header__subSlot.-mobileMenu').getBoundingClientRect().height;
+        let targetheight = targetElToDisplay.current.clientHeight;
+        if (targetheight > 0) {
+            targetElToDisplay.current.style.height = 0;
         } else {
-            targetMobileEl.current.style.height = `${height}px`;
+            targetElToDisplay.current.style.height = `${wrapperHeight}px`;
         }
 
         setMobileTriggered(prev => !prev);
@@ -56,7 +55,7 @@ const Header = props => {
                 </div>
             </header>
             <MobileWrapper>
-                <div ref={targetMobileEl} className="Header__mobileTarget">
+                <div ref={targetElToDisplay} className="Header__mobileTarget">
                     <div className="Header__subSlot -mobileMenu">
                         <Menu linklist={linklist} />
                     </div>
