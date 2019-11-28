@@ -20,6 +20,7 @@ import { search3 } from '../../misc/shared/icons';
 import { vendorsRef } from '../../firebase-init';
 import { categoryIcons } from '../../misc/shared/categories';
 import { useDebounce } from '../../misc/tools/hooks';
+import * as actions from '../../store/actions/index';
 import PropTypes from 'prop-types';
 
 
@@ -98,7 +99,12 @@ const Home = (props) => {
         if (result.businessName) {
             console.log(result, '[businessName]')
         }
+    }
 
+    const categoryIconClickedHandler = (e, identifier) => {
+        props.retrieveByCategory(identifier);
+        // eslint-disable-next-line react/prop-types
+        props.history.push('/directory');
     }
 
     return (
@@ -125,7 +131,7 @@ const Home = (props) => {
                         />
                         <h3>Categories:</h3>
 
-                        <CategoryIcons categories={categoryIcons} />
+                        <CategoryIcons categories={categoryIcons} handleClick={(e, identifier) => categoryIconClickedHandler(e, identifier)} />
                     </div>
                     <div className="Home__subSlot -or">
                         <div className="Home__or">or</div>
@@ -148,8 +154,15 @@ const mapStateToProps = state => {
     }
 }
 
-Home.propTypes = {
-    signedIn: PropTypes.bool
+const mapDispatchToProps = dispatch => {
+    return {
+        retrieveByCategory: (identifier) => dispatch(actions.retrieveVendorsByCategory(identifier))
+    }
 }
 
-export default connect(mapStateToProps)(Home);
+Home.propTypes = {
+    signedIn: PropTypes.bool,
+    retrieveByCategory: PropTypes.func
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
