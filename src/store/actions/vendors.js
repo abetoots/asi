@@ -38,7 +38,7 @@ export const retrieveVendors = () => {
     }
 }
 
-export const retrieveFilteredVendors = (filters) => {
+export const retrieveVendorsByFilter = (filters) => {
     return dispatch => {
         dispatch(retrieveVendorsStart());
 
@@ -69,5 +69,25 @@ export const retrieveFilteredVendors = (filters) => {
                 dispatch(retrieveVendorsFailed(error));
             });
 
+    }
+}
+
+export const retrieveVendorsByCategory = category => {
+    return dispatch => {
+        dispatch(retrieveVendorsStart());
+
+        vendorsRef.where('categories', 'array-contains', category).get()
+            .then(querySnapshot => {
+                const data = [];
+                querySnapshot.forEach(doc => {
+                    data.push({ id: doc.id, data: doc.data() });
+                })
+                console.log(data);
+                dispatch(retrieveVendorsSuccess(data));
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(retrieveVendorsFailed(error));
+            })
     }
 }
