@@ -16,5 +16,6 @@ export {
 
 export {
     retrieveVendors,
-    retrieveFilteredVendors
+    retrieveVendorsByFilter,
+    retrieveVendorsByCategory
 } from './vendors';
