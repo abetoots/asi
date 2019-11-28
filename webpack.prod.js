@@ -22,7 +22,8 @@ module.exports = merge(common, {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
-            }
+            },
+            favicon: './public/asi-logo@0.5x.png'
         })
     ],
     module: {
