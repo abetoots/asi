@@ -11,9 +11,9 @@ import Search from '../../components/Search/Search';
 import { NavLink } from 'react-router-dom';
 
 //Media
-import heroMobile from '../../assets/hero-mobile.jpg';
-import heroTablet from '../../assets/hero-tablet.jpg';
-import hero from '../../assets/hero-original.jpg';
+import heroMobile from '../../assets/images/hero-mobile.jpg';
+import heroTablet from '../../assets/images/hero-tablet.jpg';
+import hero from '../../assets/images/hero-original.jpg';
 import { search3 } from '../../misc/shared/icons';
 
 //Misc
