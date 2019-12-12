@@ -28,6 +28,7 @@ module.exports = merge(common, {
         }),
         new CopyPlugin([
             { from: 'public/img', to: 'img/' },
+            'public/robots.txt',
             'public/manifest.json'
         ]),
         new MiniCssExtractPlugin({ filename: '[name].[contentHash].css' }),
