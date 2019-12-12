@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = merge(common, {
     mode: 'production',
@@ -27,11 +27,12 @@ module.exports = merge(common, {
         }),
         new CopyPlugin([
             { from: 'public/img', to: 'img/' },
-            { from: 'public/css/shell.min.css', to: 'css/' },
-            { from: 'public/css/shell.min.css.map', to: 'css/' },
             'public/manifest.json'
         ]),
         new MiniCssExtractPlugin({ filename: '[name].[contentHash].css' }),
+        new InjectManifest({ // ! must be last step
+            swSrc: './src/service-worker.js'
+        })
     ],
     module: {
         rules: [
