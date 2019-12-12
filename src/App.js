@@ -30,8 +30,7 @@ const App = (props) => {
             <div className={`App ${props.initializedFirebaseAuth ? ' -loaded' : ' -loading'}`}>
                 {props.initializedFirebaseAuth ?
                     <Aux>
-                        {/* <ScriptTags /> */}
-                        < Header />
+                        <Header />
                         <MainContent>
                             <RoutesList routes={routes} loaded={props.initializedFirebaseAuth} />
                         </MainContent>
