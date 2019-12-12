@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import Logo from '../../components/Logo/Logo';
 import Menu from '../../components/Menu/Menu';
 import BurgerMenu from '../../components/UI/BurgerMenu/BurgerMenu';
-import MobileWrapper from '../../components/MobileWrapper/MobileWrapper';
 import { NavLink } from 'react-router-dom';
 
 //misc
@@ -40,27 +39,20 @@ const Header = props => {
     return (
         <section>
             <header className="Header">
+                <div className="Header__slot">
+                    <BurgerMenu handleClick={mobileClickHandler} toggled={mobileTriggered} />
+                </div>
                 <div className="Header__slot -logo">
                     <NavLink to='/' className="Header__link">
                         <Logo />
                     </NavLink>
                 </div>
-                <div className="Header__slot">
-                    <Menu linklist={linklist} desktopOnly horizontal />
-                </div>
-                <div className="Header__slot">
-                    <MobileWrapper>
-                        <BurgerMenu handleClick={mobileClickHandler} toggled={mobileTriggered} />
-                    </MobileWrapper>
-                </div>
             </header>
-            <MobileWrapper>
-                <div ref={targetElToDisplay} className="Header__mobileTarget">
-                    <div className="Header__subSlot -mobileMenu">
-                        <Menu linklist={linklist} />
-                    </div>
+            <div ref={targetElToDisplay} className="Header__mobileTarget">
+                <div className="Header__subSlot -mobileMenu">
+                    <Menu linklist={linklist} />
                 </div>
-            </MobileWrapper>
+            </div>
         </section>
     );
 };
