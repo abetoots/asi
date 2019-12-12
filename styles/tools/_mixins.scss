@@ -115,50 +115,29 @@
 // $min_font: 16px;
 // $max_font: 24px;
 // html {
-//     @include fluid-type($min_width, $max_width, $min_font, $max_font);
+//     @include fluid-type($min_width, $max_width, $min_font, $max_font, 'font-size');
 // }
 
 @function strip-unit($value) {
     @return $value / ($value * 0 + 1);
 }
 
-@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+@mixin fluid-type($min-vw, $max-vw, $min-px, $max-px, $type) {
     $u1: unit($min-vw);
     $u2: unit($max-vw);
-    $u3: unit($min-font-size);
-    $u4: unit($max-font-size);
+    $u3: unit($min-px);
+    $u4: unit($max-px);
 
     @if $u1==$u2 and $u1==$u3 and $u1==$u4 {
         & {
-            font-size: $min-font-size;
+            #{$type}: $min-px;
 
             @media screen and (min-width: $min-vw) {
-                font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+                #{$type}: calc(#{$min-px} + #{strip-unit($max-px - $min-px)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
             }
 
             @media screen and (min-width: $max-vw) {
-                font-size: $max-font-size;
-            }
-        }
-    }
-}
-
-@mixin fluid-type-max-w($min-vw, $max-vw, $min-max-width, $max-max-width) {
-    $u1: unit($min-vw);
-    $u2: unit($max-vw);
-    $u3: unit($min-max-width);
-    $u4: unit($max-max-width);
-
-    @if $u1==$u2 and $u1==$u3 and $u1==$u4 {
-        & {
-            max-width: $min-max-width;
-
-            @media screen and (min-width: $min-vw) {
-                max-width: calc(#{$min-max-width} + #{strip-unit($max-max-width - $min-max-width)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-            }
-
-            @media screen and (min-width: $max-vw) {
-                max-width: $max-max-width;
+                #{$type}: $max-px;
             }
         }
     }

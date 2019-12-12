@@ -82,7 +82,7 @@
         text-decoration: none;
         width: max-content;
         transition: transform .3s cubic-bezier(.39, .12, 0, .94);
-        @include fluid-type(320px, 1440px, 16px, 25px);
+        @include fluid-type(320px, 1440px, 16px, 25px, 'font-size');
 
         &:hover {
             transform: scale(1.1, 1.1);

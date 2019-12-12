@@ -12,7 +12,7 @@ h6,
 }
 
 h1 {
-    @include fluid-type($fmin-vw, $fmax-vw, 32px, 48px);
+    @include fluid-type($fmin-vw, $fmax-vw, 32px, 48px, 'font-size');
     line-height: 1.25em;
 
     @include tablet-above {
@@ -25,7 +25,7 @@ h1 {
 }
 
 h2 {
-    @include fluid-type($fmin-vw, $fmax-vw, 26px, 36px);
+    @include fluid-type($fmin-vw, $fmax-vw, 26px, 36px, 'font-size');
     line-height: 1.5384615em;
 
     @include tablet-above {
@@ -38,7 +38,7 @@ h2 {
 }
 
 h3 {
-    @include fluid-type($fmin-vw, $fmax-vw, 22px, 28px);
+    @include fluid-type($fmin-vw, $fmax-vw, 22px, 28px, 'font-size');
     line-height: 1.13636364em;
 
     @include tablet-above {

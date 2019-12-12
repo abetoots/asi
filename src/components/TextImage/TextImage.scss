@@ -26,7 +26,7 @@
         }
 
         p {
-            @include fluid-type(320px, 1440px, 16px, 20px);
+            @include fluid-type(320px, 1440px, 16px, 20px, 'font-size');
         }
     }
 
