@@ -62,8 +62,9 @@ const Search = (props) => {
 
     return (
         <form className={searchClasses.join(' ')} onSubmit={props.handleSubmit}>
-            <label className={`Search__label ${props.labelHidden ? '-hidden' : ''}`}>{props.label}</label>
+            <label htmlFor="SearchInput" className={`Search__label ${props.labelHidden ? '-hidden' : ''}`}>{props.label}</label>
             <input
+                id="SearchInput"
                 className={inputClasses.join(' ')}
                 onChange={props.handleChange}
                 placeholder={props.placeholder}
