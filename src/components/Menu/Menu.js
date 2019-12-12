@@ -13,7 +13,7 @@ const Menu = (props) => {
                 {props.linklist.map(item => (
                     <li className="Menu__li" key={item.path}>
                         <NavLink to={item.path} exact={item.exact} className="Menu__link">
-                            <span>{item.label}</span>
+                            <div className="Menu__touchTarget"><span>{item.label}</span></div>
                         </NavLink>
                     </li>
                 ))}
