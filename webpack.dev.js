@@ -13,7 +13,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./public/template.html",
+            template: "./public/index.html",
         })
     ],
     module: {
@@ -50,6 +50,7 @@ module.exports = merge(common, {
         ]
     },
     devServer: {
+        contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true //server index.html for any route not found
     }
 });
