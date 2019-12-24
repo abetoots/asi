@@ -13,17 +13,8 @@ import { TERMS_OF_SERVICE_PATH, PRIVACY_POLICY_PATH } from './misc/shared/consta
 //So we can dispatch actions outside a component
 import * as actions from './store/actions/index';
 import { store } from './index';
+import { firebaseConfig } from '../firebase-config';
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAqmbeMAnLJBQ-kOUd6CFrbXiqg3-bZr_A",
-    authDomain: "alsi-684f0.firebaseapp.com",
-    databaseURL: "https://alsi-684f0.firebaseio.com",
-    projectId: "alsi-684f0",
-    storageBucket: "alsi-684f0.appspot.com",
-    messagingSenderId: "16663924320",
-    appId: "1:16663924320:web:9574e037f8f08ca1f13d05",
-    measurementId: "G-H2FJQE8EMR"
-};
 // Initialize Firebase
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 // console.log('initialized firebase');
