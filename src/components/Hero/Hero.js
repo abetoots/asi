@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 const Hero = (props) => {
     return (
-        <div className={`Hero ${props.classModifier}`}>
+        <div className="Hero">
             <div className="Hero__overlay">
                 {/* <ResponsiveImage
                     class='Hero__img'
