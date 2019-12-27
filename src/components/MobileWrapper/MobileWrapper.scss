@@ -1,5 +1,4 @@
 .MobileWrapper {
-    overflow: hidden;
 
     @include media-query($medium-up) {
         display: none;
