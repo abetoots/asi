@@ -1,5 +1,12 @@
 import truncate from 'lodash.truncate';
-import parse, { domToReact } from 'html-react-parser';
+import parse from 'html-react-parser';
+import { render } from '@testing-library/react';
+import React from 'react'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { rootReducer as reducer } from '../../index';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 
 
 export const updateObject = (oldState, newProperties) => {
@@ -114,10 +121,42 @@ export const validateFilters = (filters) => {
     }
     let isValid = true;
     let toCheck = ['input', 'categories', 'location'];
+    let properties = filters.keys();
 
     toCheck.forEach(c => {
-        isValid = filters.hasOwnProperty(c) && isValid;
+        properties.includes(c);
     });
 
     return isValid;
-} 
+}
+
+// this is a handy function that I normally make available for all my tests
+// that deal with connected components.
+// you can provide initialState or the entire store that the ui is rendered with
+export const renderWithRedux = (
+    ui,
+    { initialState, store = createStore(reducer, initialState) } = {},
+) => {
+    return {
+        ...render(<Provider store={store}>{ui}</Provider>),
+        // adding `store` to the returned utilities to allow us
+        // to reference it in our tests (just try to avoid using
+        // this to test implementation details).
+        store,
+    }
+}
+
+// this is a handy function that I would utilize for any component
+// that relies on the router being in context
+export const renderWithRouter = (
+    ui,
+    { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {},
+) => {
+    return {
+        ...render(<Router history={history}>{ui}</Router>),
+        // adding `history` to the returned utilities to allow us
+        // to reference it in our tests (just try to avoid using
+        // this to test implementation details).
+        history,
+    }
+}
