@@ -26,7 +26,7 @@ import 'froala-editor/js/froala_editor.pkgd.min.js';
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     user: userReducer,
     global: globalReducer,
     account: accReducer,
