@@ -109,40 +109,42 @@ const Home = (props) => {
 
     return (
         <div className="Home">
-            <Hero src={hero} srcMobile={heroMobile} srcTablet={heroTablet}>
-                <div className="Home__slot -hero">
-                    <div className="Home__subSlot -panel">
-                        <h2>Search by business name / category / location:</h2>
-                        <Search
-                            icon={search3}
-                            label="Search our directory"
-                            labelHidden
-                            placeholder="Start typing..."
-                            tooltip="Try: 'Tea N' A Pie' or 'bakery' or 'Baguio City'"
-                            btnText="Search"
-                            btnPos="rightaligncenterpadded"
-                            touched={touched}
-                            variant='variant2'
-                            handleChange={inputChangedHandler}
-                            handleSubmit={submitHandler}
-                            handleResultClick={(e, result) => resultClickHandler(e, result)}
-                            enableAutoResults
-                            results={searchResults}
-                        />
-                        <h3>Categories:</h3>
+            <div className="Home__slot -hero">
+                <Hero src={hero} srcMobile={heroMobile} srcTablet={heroTablet}>
+                    <div className="Home__layout -hero">
+                        <div className="Home__subSlot -panel">
+                            <h2>Search by business name / category / location:</h2>
+                            <Search
+                                icon={search3}
+                                label="Search our directory"
+                                labelHidden
+                                placeholder="Start typing..."
+                                tooltip="Try: 'Tea N' A Pie' or 'bakery' or 'Baguio City'"
+                                btnText="Search"
+                                btnPos="rightaligncenterpadded"
+                                touched={touched}
+                                variant='variant2'
+                                handleChange={inputChangedHandler}
+                                handleSubmit={submitHandler}
+                                handleResultClick={(e, result) => resultClickHandler(e, result)}
+                                enableAutoResults
+                                results={searchResults}
+                            />
+                            <h3>Categories:</h3>
 
-                        <CategoryIcons categories={categoryIcons} handleClick={(e, identifier) => categoryIconClickedHandler(e, identifier)} />
+                            <CategoryIcons categories={categoryIcons} handleClick={(e, identifier) => categoryIconClickedHandler(e, identifier)} />
+                        </div>
+                        <div className="Home__subSlot -or">
+                            <div className="Home__or">or</div>
+                            <div className="Home__line -translate -scale"></div>
+                        </div>
+                        <div className="Home__subSlot -panel">
+                            <h2>Add your business to our directory. It's easy</h2>
+                            <NavLink to={`${props.signedIn ? '/account' : '/login'}`} className="Home__btnCta">Get Started</NavLink>
+                        </div>
                     </div>
-                    <div className="Home__subSlot -or">
-                        <div className="Home__or">or</div>
-                        <div className="Home__line -translate -scale"></div>
-                    </div>
-                    <div className="Home__subSlot -panel">
-                        <h2>Add your business to our directory. It's easy</h2>
-                        <NavLink to={`${props.signedIn ? '/account' : '/login'}`} className="Home__btnCta">Get Started</NavLink>
-                    </div>
-                </div>
-            </Hero>
+                </Hero>
+            </div>
         </div >
     );
 
