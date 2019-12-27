@@ -43,7 +43,7 @@ class Auth extends Component {
                     </Aux>
                     :
                     <Aux>
-                        <h1 className="Auth__heading">Please sign in first:</h1>
+                        <h1 className="Auth__heading">Create an account / Sign In:</h1>
                         <div className="Auth__firebaseContainer"></div>
                     </Aux>
                 }
