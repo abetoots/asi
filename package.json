@@ -4,10 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "webpack-dev-server --hot --inline --config webpack.dev.js --open",
+        "start": "webpack-dev-server --hot --inline --config webpack.dev.js --open --env.NODE_ENV=development",
         "start:build": "http-server ./build -c-1 -o",
-        "build": "webpack --config webpack.prod.js",
-        "test": "jest"
+        "build": "webpack --config webpack.prod.js --env.NODE_ENV=production",
+        "test": "jest --config jest.config.js"
     },
     "keywords": [],
     "author": "",
@@ -20,7 +20,8 @@
         "@babel/preset-env": "^7.7.1",
         "@babel/preset-react": "^7.7.0",
         "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
+        "@testing-library/react": "^9.4.0",
+        "@types/jest": "^24.0.24",
         "babel-eslint": "^10.0.3",
         "babel-jest": "^24.9.0",
         "babel-loader": "^8.0.6",
@@ -32,6 +33,7 @@
         "eslint-plugin-jest": "^23.0.4",
         "eslint-plugin-react": "^7.16.0",
         "file-loader": "^4.2.0",
+        "firebase-mock": "^2.3.1",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.2.0",
         "http-server": "^0.12.0",
@@ -80,32 +82,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "jest": {
-        "roots": [
-            "<rootDir>/src"
-        ],
-        "transform": {
-            "^.+\\.(js|jsx)?$": "babel-jest"
-        },
-        "moduleFileExtensions": [
-            "js",
-            "jsx"
-        ],
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            "/public/"
-        ],
-        "setupFiles": [
-            "./__mocks__/styleMock.js",
-            "./__mocks__/fileMock.js"
-        ],
-        "setupFilesAfterEnv": [
-            "@testing-library/jest-dom/extend-expect"
-        ],
-        "moduleNameMapper": {
-            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-            "\\.(css|scss|sass)$": "<rootDir>/__mocks__/styleMock.js"
-        }
     }
 }
