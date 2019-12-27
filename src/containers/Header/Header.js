@@ -12,45 +12,59 @@ import { NavLink } from 'react-router-dom';
 //misc
 import { defaultMenu, authenticatedMenu } from '../../misc/shared/menus';
 import PropTypes from 'prop-types';
+import MobileWrapper from '../../components/MobileWrapper/MobileWrapper';
 
 
-const Header = props => {
-    const [mobileTriggered, setMobileTriggered] = useState(false);
+export const Header = props => {
+    const [menuToggled, setMenuToggled] = useState(false);
 
     const targetElToDisplay = useRef(null);
 
     const linklist = props.signedIn ? authenticatedMenu : defaultMenu;
 
-    const mobileClickHandler = e => {
+    const menuClickHandler = e => {
         if (targetElToDisplay === null) {
             console.log('target not found');
             return;
         }
-        let wrapperHeight = targetElToDisplay.current.querySelector('.Header__subSlot.-mobileMenu').getBoundingClientRect().height;
+        let wrapperHeight = targetElToDisplay.current.querySelector('.MainHeader__subSlot.-burgerMenu').getBoundingClientRect().height;
         let targetheight = targetElToDisplay.current.clientHeight;
         if (targetheight > 0) {
             targetElToDisplay.current.style.height = 0;
+            targetElToDisplay.current.style.visibility = 'hidden';
         } else {
             targetElToDisplay.current.style.height = `${wrapperHeight}px`;
+            targetElToDisplay.current.style.visibility = 'initial';
         }
 
-        setMobileTriggered(prev => !prev);
+        setMenuToggled(prev => !prev);
     }
     return (
-        <section>
+        <section className="MainHeader">
             <header className="Header">
                 <div className="Header__slot">
-                    <BurgerMenu handleClick={mobileClickHandler} toggled={mobileTriggered} />
+                    <BurgerMenu handleClick={menuClickHandler} toggled={menuToggled} />
                 </div>
                 <div className="Header__slot -logo">
                     <NavLink to='/' className="Header__link">
                         <Logo />
                     </NavLink>
                 </div>
+                {
+                    !props.signedIn ?
+                        <div className="Header__slot -register">
+                            <MobileWrapper>
+                                <NavLink to="/login" className="Header__btnRegister" >Register</NavLink>
+                            </MobileWrapper>
+                        </div>
+                        :
+                        ''
+                }
+
             </header>
-            <div ref={targetElToDisplay} className="Header__mobileTarget">
-                <div className="Header__subSlot -mobileMenu">
-                    <Menu linklist={linklist} />
+            <div ref={targetElToDisplay} className="MainHeader__slot -menuClickTarget">
+                <div className="MainHeader__subSlot -burgerMenu">
+                    <Menu linklist={linklist} visible={menuToggled} />
                 </div>
             </div>
         </section>

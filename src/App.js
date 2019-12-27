@@ -18,7 +18,7 @@ import { uniqArray } from './misc/tools/util';
 import PropTypes from 'prop-types';
 
 
-const App = (props) => {
+export const App = (props) => {
     /**
      * 1) Modules are objects by default. We extract them to an array using Object.values() then flatten it using flat()
      * 2) We only need to add one route per path so we extract only unique values through a custom func uniqArray() [see util.js]

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { footerMenu1, footerMenu2 } from '../../misc/shared/menus';
 
-class Footer extends Component {
+export class Footer extends Component {
 
     render() {
         const now = new Date().getFullYear();
