@@ -1,12 +1,10 @@
 .Hero {
     $self: &;
 
-    min-height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     flex-flow: column;
-    background-color: #232323;
 
 
     &__overlay {

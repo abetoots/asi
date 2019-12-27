@@ -3,8 +3,16 @@
 
     &__slot {
         &.-hero {
-            // color: #14BDEB;
-            color: rgb(177, 208, 243);
+            min-height: 100vh;
+            background-color: #183446;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__layout {
+        &.-hero {
+            color: #07B2FC;
 
             @include media-query($medium-up) {
                 display: grid;
