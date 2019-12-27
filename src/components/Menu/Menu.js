@@ -6,8 +6,14 @@ import './Menu.scss';
 
 const Menu = (props) => {
 
+    const classes = props.visible ? ['Menu'] : ['Menu -hidden'];
+
+    if (props.desktopOnly) {
+        classes.push('-desktopOnly');
+    }
+
     return (
-        <nav className={`Menu ${props.desktopOnly ? ' -desktopOnly' : ''}`}>
+        <nav className={classes.join(' ')}>
             {props.label ? <h4 className="Menu__label">{props.label}</h4> : ''}
             <ul className={`Menu__ul ${props.horizontal ? ' -horizontal' : ''}`}>
                 {props.linklist.map(item => (
@@ -21,7 +27,9 @@ const Menu = (props) => {
         </nav>
     );
 };
-
+Menu.defaultProps = {
+    visible: true
+}
 Menu.propTypes = {
     routes: PropTypes.arrayOf(PropTypes.exact(
         {
@@ -34,7 +42,8 @@ Menu.propTypes = {
     desktopOnly: PropTypes.bool,
     label: PropTypes.string,
     horizontal: PropTypes.bool,
-    linklist: PropTypes.array
+    linklist: PropTypes.array,
+    visible: PropTypes.bool
 }
 
 export default Menu;
