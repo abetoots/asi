@@ -2,23 +2,23 @@
     "name": "Adevntist Services & Industries",
     "short_name": "ASI",
     "icons": [{
-        "src": "img/asi-icon-108x108.png",
+        "src": "img/asi-logo-108x108.png",
         "sizes": "108x108",
         "type": "image/png"
       }, {
-        "src": "img/asi-icon-144x144.png",
+        "src": "img/asi-logo-144x144.png",
         "sizes": "144x144",
         "type": "image/png"
       }, {
-        "src": "img/asi-icon-192x192.png",
+        "src": "img/asi-logo-192x192.png",
         "sizes": "192x192",
         "type": "image/png"
       }, {
-        "src": "img/asi-icon-384x384.png",
+        "src": "img/asi-logo-384x384.png",
         "sizes": "384x384",
         "type": "image/png"
       }, {
-        "src": "img/asi-icon-512x512.png",
+        "src": "img/asi-logo-512x512.png",
         "sizes": "512x512",
         "type": "image/png"
       }],
