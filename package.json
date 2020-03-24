@@ -16,6 +16,7 @@
     "devDependencies": {
         "@babel/core": "^7.7.2",
         "@babel/plugin-proposal-class-properties": "^7.7.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "@babel/plugin-transform-runtime": "^7.6.2",
         "@babel/preset-env": "^7.7.1",
         "@babel/preset-react": "^7.7.0",
@@ -56,11 +57,11 @@
         "@fortawesome/free-brands-svg-icons": "^5.11.2",
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
         "@fortawesome/react-fontawesome": "^0.1.7",
+        "@loadable/component": "^5.12.0",
         "firebase": "^7.3.0",
         "firebaseui": "^4.2.0",
         "html-react-parser": "^0.10.0",
         "lodash.truncate": "^4.4.2",
-        "normalize.css": "^8.0.1",
         "prop-types": "^15.7.2",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
@@ -68,9 +69,10 @@
         "react-redux": "^7.1.3",
         "react-router": "^5.1.2",
         "react-router-dom": "^5.1.2",
-        "react-typography": "^0.16.19",
         "redux": "^4.0.4",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "typography": "^0.16.19",
+        "typography-theme-us-web-design-standards": "^0.16.19"
     },
     "browserslist": {
         "production": [
